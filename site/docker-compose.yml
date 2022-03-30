@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  site:
+    build: .
+    image: devshop-site-image
+    container_name: devshop-site-container
+    ports: 
+      - 3002:3002
+  

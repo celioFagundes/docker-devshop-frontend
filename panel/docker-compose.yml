@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  panel:
+    build: .
+    image: devshop-panel-image
+    container_name: devshop-panel-container
+    ports: 
+      - 3001:3001
+  
