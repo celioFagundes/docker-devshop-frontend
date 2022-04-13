@@ -6,7 +6,7 @@ const Button = ({ children, type = 'text' , onClick}) => {
     <button
       type={type}
       onClick ={onClick}
-      className='bg-white my-2 max-w-xs hover:bg-slate-200 text-gray-700 font-bold py-2 px-4 rounded'
+      className='bg-primary my-2 max-w-xs hover:bg-slate-200 text-gray-700 font-bold py-2 px-4 rounded'
     >
       {children}
     </button>
@@ -14,11 +14,36 @@ const Button = ({ children, type = 'text' , onClick}) => {
 }
 const ButtonLink = ({ href, children }) => {
   return (
+
     <Link href={href}>
-      <a className='bg-white  hover:bg-slate-200 text-gray-700 font-bold py-2 px-4 border border-white rounded'>
+      <a className='bg-lightBlack hover:bg-slate-200 text-white font-medium py-2 px-4 border border-white rounded-lg uppercase'>
         {children}
       </a>
     </Link>
+  )
+}
+const ButtonCard = ({ href, children, Icon }) => {
+  return (
+    
+      <Link href={href}>
+        <div className='
+        flex items-center justify-between w-max 
+        bg-lightBlack 
+        hover:bg-darkBlack hover:cursor-pointer
+        text-white font-medium uppercase
+        border border-lightBlack rounded 
+        '>
+        {Icon &&
+          <div className='bg-darkBlack py-3 px-3'>
+             <Icon size = {22} color = '#fff'/>
+          </div>
+         }
+        <a className=' py-3 px-3'>
+        {children}
+      </a>
+        </div>
+    </Link>
+
   )
 }
 const ButtonLinkOutline = ({ href, children }) => {
@@ -36,4 +61,5 @@ const ButtonLinkOutline = ({ href, children }) => {
 
 Button.Link = ButtonLink
 Button.LinkOutline = ButtonLinkOutline
+Button.Card = ButtonCard
 export default Button
