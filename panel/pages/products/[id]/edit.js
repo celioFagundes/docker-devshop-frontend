@@ -239,7 +239,7 @@ const EditProduct = () => {
       form.setFieldValue('category', data.getProductById.category.id)
       form.setFieldValue('brand', data.getProductById.brand.id)
       form.setFieldValue('price', data.getProductById.price)
-      form.setFieldValue('gender', data.getProductById.gender)
+      form.setFieldValue('gender', data.getProductById.gender.toUpperCase())
       form.setFieldValue('material', data.getProductById.material)
       form.setFieldValue('color', data.getProductById.color)
       form.setFieldValue('variations', data.getProductById.variations)
