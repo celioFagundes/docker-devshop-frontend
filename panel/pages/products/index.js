@@ -8,6 +8,7 @@ import {
   AiFillDelete,
   AiFillEdit,
   AiFillPicture,
+  AiFillInfoCircle
 } from 'react-icons/ai'
 import Link from 'next/link'
 import Button from '../../components/Button'
@@ -82,7 +83,7 @@ const Products = () => {
       <div className='flex flex-col mt-5'>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
           {data && data.getAllProducts.length === 0 && (
-            <Alert>Nenhuma produto encontrado</Alert>
+            <Alert>No sneakers found</Alert>
           )}
           {data && data.getAllProducts.length > 0 && (
             <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg '>
@@ -102,10 +103,10 @@ const Products = () => {
                       <Table.Td>
                         <div className='flex items-center'>
                           <div>
-                            <div className='text-sm leading-5 font-medium text-gray-900'>
+                            <div className='text-sm leading-5 font-medium text-lightGray'>
                               {item.name}
                             </div>
-                            <div className='text-sm leading-5 text-gray-500  max-w-xs overflow-hidden truncate'>
+                            <div className='text-sm leading-5 text-lightGray  max-w-xs overflow-hidden truncate'>
                               {item.description}
                             </div>
                           </div>
@@ -114,7 +115,7 @@ const Products = () => {
                       <Table.Td>
                         <div className='flex items-center'>
                           <div>
-                            <div className='text-sm leading-5 font-medium text-gray-900'>
+                            <div className='text-sm leading-5 font-medium text-lightGray'>
                               {item.brand.name}
                             </div>
                           </div>
@@ -123,7 +124,7 @@ const Products = () => {
                       <Table.Td>
                         <div className='flex items-center'>
                           <div>
-                            <div className='text-sm leading-5 font-medium text-gray-900'>
+                            <div className='text-sm leading-5 font-medium text-lightGray'>
                               {item.category.name}
                             </div>
                           </div>
@@ -132,7 +133,7 @@ const Products = () => {
                       <Table.Td>
                         <div className='flex items-center justify-center'>
                           <div>
-                            <div className='text-sm leading-5 font-medium  text-gray-900 uppercase'>
+                            <div className='text-sm leading-5 font-medium  text-lightGray uppercase'>
                               {item.gender}
                             </div>
                           </div>
@@ -141,7 +142,7 @@ const Products = () => {
                       <Table.Td>
                         <div className='flex items-center'>
                           <div>
-                            <div className='text-sm leading-5 font-medium text-gray-900'>
+                            <div className='text-sm leading-5 font-medium text-lightGray'>
                               {item.slug}
                             </div>
                           </div>
@@ -150,7 +151,7 @@ const Products = () => {
                       <Table.Td>
                         <div className='flex items-center'>
                           <div>
-                            <div className='text-sm leading-5 font-medium text-gray-900'>
+                            <div className='text-sm leading-5 font-medium text-lightGray'>
                               {item.material}
                             </div>
                           </div>
@@ -159,26 +160,26 @@ const Products = () => {
                       <Table.Td>
                         <div className='flex items-center justify-between'>
                           <Link href={`/products/${item.id}/images`}>
-                            <a className='text-gray-900 font-medium hover:text-gray-400 mr-1'>
+                            <a className='text-lightGray font-medium hover:text-gray-400 mr-1'>
                               <AiFillPicture size={24} />
                             </a>
                           </Link>
                           <Link href={`/products/${item.id}/edit`}>
-                            <a className='text-gray-900 font-medium hover:text-gray-400 mr-2'>
+                            <a className='text-lightGray font-medium hover:text-gray-400 mr-2'>
                               <AiFillEdit size={24} />
                             </a>
                           </Link>
                           <button
                             onClick={openModal(item)}
-                            className='text-gray-900 font-medium hover:text-gray-400'
+                            className='text-lightGray font-medium hover:text-gray-400'
                           >
                             <AiFillDelete size={24} />
                           </button>
                           <button
                             onClick={openModalInfo(item)}
-                            className='text-gray-900 font-medium hover:text-gray-400'
+                            className='text-lightGray font-medium hover:text-gray-400'
                           >
-                            ...
+                            <AiFillInfoCircle size={24}/>
                           </button>
                         </div>
                       </Table.Td>
@@ -188,9 +189,7 @@ const Products = () => {
               </Table>
               {modalInfoVisible && (
                 <ModalInfo
-                  type={'remove'}
                   item={itemSelected}
-                  visible={modalInfoVisible}
                   closeFunction={() => setModalInfoVisible(false)}
                 />
               )}

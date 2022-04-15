@@ -13,15 +13,21 @@ const Select = ({
   errorMessage,
 }) => {
   return (
-    <div className='mr-4 max-w-sm mb-2'>
+    <div className='mr-4 max-w-sm mb-2 bg-lightBlack py-3 px-3 rounded-sm'>
       <label
-        className='block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2'
+        className='block uppercase tracking-wide text-primary text-xs font-bold mb-2'
         htmlFor={'id-' + name}
       >
         {label}
       </label>
       <select
-        className='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 '
+        className='
+        appearance-none block w-full 
+        placeholder-gray-600
+        bg-darkBlack text-gray-200 
+         rounded-sm py-1 px-4 my-1
+         leading-tight focus:outline-none 
+      '
         id={'id-' + name}
         placeholder={placeholder}
         onChange={onChange}
@@ -30,8 +36,8 @@ const Select = ({
         value={oldValue !== '' ? oldValue : value}
       >
         {value === '' && (
-          <option value='' hidden>
-            Selecionar
+          <option value='' hidden >
+            Select
           </option>
         )}
         {options.map(opt => (
@@ -41,7 +47,7 @@ const Select = ({
         ))}
       </select>
       {errorMessage && (
-        <p className='text-red-500 text-xs italic'>{errorMessage}</p>
+        <p className='text-red-400 text-xs italic'>{errorMessage}</p>
       )}
       {helpText && <p className='text-gray-600 text-xs italic'>{helpText} </p>}
     </div>
@@ -62,13 +68,17 @@ const SingleValues = ({
   return (
     <div className='mr-4 max-w-sm mb-2'>
       <label
-        className='block uppercase tracking-wide text-gray-100 text-xs font-bold mb-2'
+        className='block uppercase tracking-wide text-primary text-xs font-bold mb-2'
         htmlFor={'id-' + name}
       >
         {label}
       </label>
       <select
-        className='appearance-none block w-20 bg-gray-100 text-gray-700 border border-gray-200 rounded py-2 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500 '
+        className='
+        appearance-none block w-20 
+        bg-darkBlack text-gray-200 
+         rounded-sm py-1 px-4  leading-tight 
+        focus:outline-none '
         id={'id-' + name}
         placeholder={placeholder}
         onChange={onChange}
@@ -78,7 +88,7 @@ const SingleValues = ({
       >
         {value === '' && (
           <option value='' hidden>
-            Selecionar
+            Select
           </option>
         )}
         {options.map(opt => (
@@ -88,7 +98,7 @@ const SingleValues = ({
         ))}
       </select>
       {errorMessage && (
-        <p className='text-red-500 text-xs italic'>{errorMessage}</p>
+        <p className='text-red-400 text-xs italic'>{errorMessage}</p>
       )}
       {helpText && <p className='text-gray-600 text-xs italic'>{helpText} </p>}
     </div>

@@ -13,21 +13,21 @@ const TableHead = ({ children }) => {
 }
 const TableTh = ({ children }) => {
   return (
-    <th className='px-6 py-3  bg-lightBlack text-white text-left text-xs leading-4 font-medium uppercase tracking-wider'>
+    <th className='px-6 py-3  bg-darkBlack text-white text-left text-xs leading-4 font-medium uppercase tracking-wider'>
       {children}
     </th>
   )
 }
 
 const TableBody = ({ children }) => {
-  return <tbody className='bg-gray-200 rounded'>{children}</tbody>
+  return <tbody className='bg-lightBlack rounded'>{children}</tbody>
 }
 const TableRow = ({ children }) => {
   return <tr >{children}</tr>
 }
 const TableTd = ({ children }) => {
   return (
-    <td className='px-6 relative py-4 whitespace-no-wrap border-b border-gray-300'
+    <td className='px-6 relative py-4 whitespace-no-wrap border-b border-gray-600'
       >{children}
     </td>
   )

@@ -72,8 +72,8 @@ const Layout = ({ children }) => {
                 )}
               </Sidebar.Nav>
             </Sidebar>
-            <main className='flex-1 overflow-x-hidden  bg-lightGray '>
-              <div className='container mx-auto px-6 py-8  h-full'>
+            <main className='flex-1 overflow-x-hidden  bg-zinc-900'>
+              <div className='container mx-auto md:px-6 py-5  h-full'>
                 {children}
               </div>
             </main>

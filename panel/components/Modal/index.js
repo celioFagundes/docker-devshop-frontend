@@ -15,7 +15,7 @@ const Modal = ({
     >
       <div className='overflow-y-auto overflow-x-hidden  z-50 flex justify-center items-center md:inset-0 h-modal sm:h-full'>
         <div className='relative px-4 w-full max-w-md h-full md:h-auto'>
-          <div className='relative bg-white rounded-lg shadow dark:bg-gray-700'>
+          <div className='relative  rounded-lg shadow bg-lightBlack'>
             <div className='flex justify-end p-2'>
               <button
                 type='button'
@@ -32,12 +32,12 @@ const Modal = ({
               </div>
               <h3 className='mb-5 text-lg font-normal text-gray-200'>
                 {type === 'remove' &&
-                  'Tem certeza que deseja excluir este item? '}
-                {type === 'edit' && 'Deseja salvar as alterações neste item?'}
+                  'Are you sure you want to delete this item?'}
+                {type === 'edit' && 'Save changes?'}
                 {type === 'create' &&
-                  'Tem certeza que deseja criar este item ?'}
+                  'Are you sure you want to create this item?'}
                 {type === 'invalidate' &&
-                  'Tem certeza que deseja invalidar esta sessão ?'}
+                  'Are you sure you want to invalidate this session?'}
               </h3>
               <button
                 type={(type === 'remove' ||  type === 'invalidate') ? 'button' : 'submit'}
@@ -45,18 +45,18 @@ const Modal = ({
                 onClick={() => (type === 'remove' ||  type === 'invalidate') && confirmFunction(itemId)}
                 className={`${
                   (type === 'remove' || type === 'invalidate')
-                    ? 'bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300'
-                    : 'bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-green-300'
-                } text-white font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2`}
+                    ? 'bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300'
+                    : 'bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300'
+                } text-white font-medium rounded-lg text-sm inline-flex items-center px-5 py-2 text-center mr-2`}
               >
-                Sim, tenho certeza
+                Yes, i'm sure
               </button>
               <button
                 type='button'
                 onClick={closeFunction}
-                className='text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600'
+                className='text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600'
               >
-                Não. cancelar
+                No, cancel
               </button>
             </div>
           </div>

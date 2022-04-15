@@ -65,14 +65,16 @@ const ImageSchema = Yup.object().shape({
   return (
     <Layout>
       <Title>
-        Upload de imagens do produto :{' '}
+         Images upload :{' '}
         {data && data.getProductById && data.getProductById.name}
       </Title>
       <div className='mt-5'>
-        <Button.LinkOutline href='/products/'>Voltar</Button.LinkOutline>
+        <Button.LinkBack href='/products/'>
+          Back
+        </Button.LinkBack>
       </div>
       <div className='flex flex-col mt-5'>
-        <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border border-gray-600 bg-gray-800 p-12'>
+        <div className='align-middle inline-block min-w-full shadow overflow-hidden rounded-sm  bg-darkBlack p-12'>
           <form onSubmit={form.handleSubmit}>
             <div className='flex flex-col'>
             <input
@@ -84,16 +86,16 @@ const ImageSchema = Yup.object().shape({
               onChange={evt => form.setFieldValue('file', evt.target.files[0])}
             />
             {form.errors?.file &&
-              <p className='text-red-500 text-xs italic'>Por favor selecione uma imagem</p>
+              <p className='text-red-500 text-xs italic'>Please select a image</p>
           }
             
-            <Button type='submit'>Adicionar</Button>
+            <Button type='submit'>Add</Button>
             </div>
             
           </form>
           {uploadData && !!uploadData.errors && (
             <p className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2'>
-              Ocorreu um erro ao salvar os dados
+              Error while trying to save data
             </p>
           )}
           <section className='overflow-hidden text-gray-70 mt-5'>
@@ -101,7 +103,7 @@ const ImageSchema = Yup.object().shape({
               <div className='flex flex-wrap  w-full m-1 md:-m-2 '>
                 {(data?.getProductById?.images === null ||
                   data?.getProductById?.images?.length === 0) && (
-                  <Alert>Nenhuma imagem neste produto</Alert>
+                  <Alert>No images found</Alert>
                 )}
                 {data?.getProductById?.images?.map((image, index) => (
                   <div
