@@ -73,7 +73,7 @@ const ImageSchema = Yup.object().shape({
           Back
         </Button.LinkBack>
       </div>
-      <div className='flex flex-col mt-5'>
+      <div className='flex flex-col'>
         <div className='align-middle inline-block min-w-full shadow overflow-hidden rounded-sm  bg-darkBlack p-12'>
           <form onSubmit={form.handleSubmit}>
             <div className='flex flex-col'>

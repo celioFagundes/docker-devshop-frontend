@@ -107,55 +107,49 @@ const EditUser = () => {
   }
   return (
     <Layout>
-      <Title>Editar usuario</Title>
+      <Title>Edit user</Title>
       <div className='mt-5'>
-        <Button.LinkOutline href='/users'>Voltar</Button.LinkOutline>
+        <Button.LinkBack href='/users'>Back</Button.LinkBack>
       </div>
-      <div className='flex flex-col mt-5'>
-        <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border border-gray-600 bg-gray-800 p-12'>
+      <div className='flex flex-col'>
+        <div className='align-middle inline-block min-w-full shadow overflow-hidden rounded-sm  bg-darkBlack p-12'>
           <form onSubmit={form.handleSubmit}>
-          <div className='my-2'>
-                <Input
-                  label='Nome do usuario'
-                  placeholder='Preencha o nome do usuario'
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  value={form.values.name}
-                  name='name'
-                  errorMessage={form.errors.name}
-                />
-              </div>
+          <Input
+                label='User name'
+                placeholder='Enter user name'
+                onChange={form.handleChange}
+                value={form.values.name}
+                name='name'
+                errorMessage={form.errors.name}
+                onBlur={form.handleBlur}
+              />
 
-              <div className='my-2'>
-                <Input
-                  label='Email do usuario'
-                  placeholder='Preencha o email do usuario'
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  value={form.values.email}
-                  name='email'
-                  errorMessage={form.errors.email}
-                />
-              </div>
-
-              <div className='my-2'>
+              <Input
+                label='User email'
+                placeholder='Enter  user email'
+                onChange={form.handleChange}
+                value={form.values.email}
+                name='email'
+                errorMessage={form.errors.email}
+                onBlur={form.handleBlur}
+              />
               <Select
-                  label= 'Role do usuario'
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  name='role'
-                  value={form.values.role}
-                  options={roleOptions}
-                  errorMessage={form.errors.role}
-                />
-                
-              </div>
-              <Button type='button' onClick={checkForErrors}>Salvar alterações</Button> 
+                label='User role'
+                onChange={form.handleChange}
+                name='role'
+                value={form.values.role}
+                options={roleOptions}
+                errorMessage={form.errors.role}
+                onBlur={form.handleBlur}
+              />
+              <Button type='button' onClick={checkForErrors}>
+                Finish
+              </Button>
               <Modal type = {'edit'}  visible = {modalVisible} closeFunction = {() => setModalVisible(false)}/>
           </form>
           {updatedData && !!updatedData.errors && (
             <p className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2'>
-              Ocorreu um erro ao salvar os dados
+              Error while trying to save
             </p>
           )}
         </div>

@@ -9,6 +9,8 @@ import { useRouter } from 'next/router'
 import { formatDistance } from 'date-fns'
 import ptBr from 'date-fns/locale/pt-Br'
 import Modal from '../../../components/Modal'
+import enUS from 'date-fns/locale/en-US'
+import { AiFillDelete } from 'react-icons/ai'
 
 const INVALIDADE_SESSION = `
   mutation invalidateUserSession($id: String!) {
@@ -40,23 +42,22 @@ const Sessions = () => {
   }
   return (
     <Layout>
-      <Title>Gerenciar sessões do usuario</Title>
+      <Title>User sessions</Title>
       <div className='mt-5'>
-        <Button.LinkOutline href='/users'>Voltar</Button.LinkOutline>
+        <Button.LinkBack href='/users'>Back</Button.LinkBack>
       </div>
-
-      <div className='flex flex-col mt-5'>
+      <div className='flex flex-col'>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
           {data && data.panelGetAllUserSessions.length === 0 && (
-            <Alert>Nenhuma sessão encontrada</Alert>
+            <Alert>No sessions found</Alert>
           )}
           {data && data.panelGetAllUserSessions.length > 0 && (
             <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg '>
               <Table>
                 <Table.Head>
-                  <Table.Th>Sessões</Table.Th>
-                  <Table.Th>Usado em</Table.Th>
-                  <Table.Th>Actions</Table.Th>
+                  <Table.Th>Sessions</Table.Th>
+                  <Table.Th>Last used on</Table.Th>
+                  <Table.Th></Table.Th>
                 </Table.Head>
                 <Table.Body>
                   {data &&
@@ -65,10 +66,10 @@ const Sessions = () => {
                         <Table.Td>
                           <div className='flex items-center'>
                             <div>
-                              <div className='text-sm leading-5 font-medium text-gray-900'>
+                              <div className='text-sm leading-5 font-medium text-lightGray'>
                                 {item.id}
                               </div>
-                              <div className='text-sm leading-5 text-gray-500'>
+                              <div className='text-sm leading-5 text-lightGray'>
                                 {item.userAgent}
                               </div>
                             </div>
@@ -77,11 +78,11 @@ const Sessions = () => {
                         <Table.Td>
                           <div className='flex items-center'>
                             <div>
-                              <div className='text-sm leading-5 font-medium text-gray-900'>
+                              <div className='text-sm leading-5 font-medium text-lightGray'>
                                 {formatDistance(
                                   new Date(item.lastUsedAt),
                                   new Date(),
-                                  { locale: ptBr },
+                                  { locale: enUS },
                                 )}
                               </div>
                             </div>
@@ -89,16 +90,15 @@ const Sessions = () => {
                         </Table.Td>
                         <Table.Td className='px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium'>
                           {item.active ? (
-                            <a
-                              href='#'
-                              onClick={openModal(item.id)}
-                              className='text-red-800 font-medium hover:text-red-400 ml-2'
-                            >
-                              Invalidar
-                            </a>
+                            <button
+                            onClick={openModal(item.id)}
+                            className='text-lightGray font-medium hover:text-gray-400'
+                          >
+                            <AiFillDelete size={24} />
+                          </button>
                           ) : (
-                            <div className='text-sm leading-5 font-medium text-gray-900'>
-                              Inativa
+                            <div className='text-sm leading-5 font-medium text-lightGray'>
+                              Invalid
                             </div>
                           )}
                         </Table.Td>

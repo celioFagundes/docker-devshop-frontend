@@ -73,17 +73,17 @@ const CreateBrand = () => {
   }
   return (
     <Layout>
-      <Title>Criar uma nova marca</Title>
+      <Title>Create new brand</Title>
       <div className='mt-5'>
-        <Button.LinkOutline href='/brands'>Voltar</Button.LinkOutline>
+        <Button.LinkBack href='/brands'>Back</Button.LinkBack>
       </div>
-      <div className='flex flex-col mt-5'>
+      <div className='flex flex-col'>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
-          <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border border-gray-600 bg-gray-800 p-12'>
+          <div className='align-middle inline-block min-w-full shadow overflow-hidden rounded-sm  bg-darkBlack p-12'>
             <form onSubmit={form.handleSubmit}>
               <Input
-                label='Nome da marca'
-                placeholder='Preencha o nome da marca'
+                label='Brand name'
+                placeholder='Enter brand name'
                 onChange={form.handleChange}
                 value={form.values.name}
                 name='name'
@@ -92,18 +92,18 @@ const CreateBrand = () => {
               />
 
               <Input
-                label='Slug da marca'
-                placeholder='Preencha o slug da marca'
+                label='Brand slug'
+                placeholder='Enter brand slug'
                 onChange={form.handleChange}
                 value={form.values.slug}
                 name='slug'
                 errorMessage={form.errors.slug}
                 onBlur={form.handleBlur}
-                helpText='Slug é utilizado para criar URLs amigaveis'
+                helpText={"Slug is used to create easy-to-read URL's"}
               />
 
               <Button type='button' onClick={checkForErrors}>
-                Criar marca
+                Finish
               </Button>
               <Modal
                 type={'create'}
@@ -113,7 +113,7 @@ const CreateBrand = () => {
             </form>
             {data && !!data.errors && (
               <p className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2'>
-                Ocorreu um erro ao salvar os dados
+                Error while trying to save
               </p>
             )}
           </div>

@@ -1,4 +1,4 @@
-import React , {useState}from 'react'
+import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import Title from '../../components/Title'
 import { useMutation, fetcher } from '../../lib/graphql'
@@ -10,8 +10,8 @@ import * as Yup from 'yup'
 import Select from '../../components/Select'
 import Modal from '../../components/Modal'
 const roleOptions = [
-  {id: 'ADMIN', label: 'Administrador'},
-  {id: 'USER', label: 'Usuario'}
+  { id: 'ADMIN', label: 'Administrador' },
+  { id: 'USER', label: 'Usuario' },
 ]
 const CREATE_USER = `
   mutation createUser($name: String!, $email: String!, $password: String!, $role: UserRole!) {
@@ -35,8 +35,7 @@ const UserSchema = Yup.object().shape({
   password: Yup.string()
     .min(3, 'Por favor, informe uma senha com pelo menos 3 caracteres')
     .required('Por favor, informe uma senha'),
-  role: Yup.string()
-    .required('Por favor, informe uma role'),
+  role: Yup.string().required('Por favor, informe uma role'),
   email: Yup.string()
     .min(3, 'Por favor, informe um email com pelo menos 3 caracteres')
     .email()
@@ -63,9 +62,9 @@ const CreateUser = () => {
   const [modalVisible, setModalVisible] = useState(false)
   const router = useRouter()
   const form = useFormik({
-    validateOnChange:false,
-    validateOnMount:true,
-    validateOnBlur:true,
+    validateOnChange: false,
+    validateOnMount: true,
+    validateOnBlur: true,
     initialValues: {
       name: '',
       email: '',
@@ -80,80 +79,72 @@ const CreateUser = () => {
       }
     },
   })
-  const checkForErrors = async() =>{
-    if(JSON.stringify(form.errors) === '{}'){
+  const checkForErrors = async () => {
+    if (JSON.stringify(form.errors) === '{}') {
       setModalVisible(true)
     }
   }
   return (
     <Layout>
-      <Title>Criar novo usuario</Title>
+      <Title>Create new user</Title>
       <div className='mt-5'>
-        <Button.LinkOutline href='/users'>Voltar</Button.LinkOutline>
+        <Button.LinkBack href='/users'>Back</Button.LinkBack>
       </div>
-      <div className='flex flex-col mt-5'>
+      <div className='flex flex-col '>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
-          <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border border-gray-600 bg-gray-800 p-12'>
+          <div className='align-middle inline-block min-w-full shadow overflow-hidden rounded-sm bg-darkBlack p-12'>
             <form onSubmit={form.handleSubmit}>
-              <div className='my-2'>
-                <Input
-                  label='Nome do usuario'
-                  placeholder='Preencha o nome do usuario'
-                  onChange={form.handleChange}
-                  value={form.values.name}
-                  name='name'
-                  errorMessage={form.errors.name}
-                  onBlur={form.handleBlur}
-                />
-              </div>
+              <Input
+                label='User name'
+                placeholder='Enter user name'
+                onChange={form.handleChange}
+                value={form.values.name}
+                name='name'
+                errorMessage={form.errors.name}
+                onBlur={form.handleBlur}
+              />
 
-              <div className='my-2'>
-                <Input
-                  label='Email do usuario'
-                  placeholder='Preencha o email do usuario'
-                  onChange={form.handleChange}
-                  value={form.values.email}
-                  name='email'
-                  errorMessage={form.errors.email}
-                  onBlur={form.handleBlur}
-                />
-              </div>
+              <Input
+                label='User email'
+                placeholder='Enter  user email'
+                onChange={form.handleChange}
+                value={form.values.email}
+                name='email'
+                errorMessage={form.errors.email}
+                onBlur={form.handleBlur}
+              />
 
-              <div className='my-2'>
-                <Input
-                  label='Senha do usuario'
-                  placeholder='Preencha a senha do usuario'
-                  onChange={form.handleChange}
-                  value={form.values.password}
-                  name='password'
-                  errorMessage={form.errors.password}
-                  onBlur={form.handleBlur}
-                />
-              </div>
+              <Input
+                label='User password'
+                placeholder='Enter user password'
+                onChange={form.handleChange}
+                value={form.values.password}
+                name='password'
+                errorMessage={form.errors.password}
+                onBlur={form.handleBlur}
+              />
 
-              <div className='my-2'>
               <Select
-                  label= 'Role do usuario'
-                  onChange={form.handleChange}
-                  name='role'
-                  value={form.values.role}
-                  options={roleOptions}
-                  errorMessage={form.errors.role}
-                  onBlur={form.handleBlur}
-                />
-               <Button type='button' onClick={checkForErrors}>
-                Criar Usuario
+                label='User role'
+                onChange={form.handleChange}
+                name='role'
+                value={form.values.role}
+                options={roleOptions}
+                errorMessage={form.errors.role}
+                onBlur={form.handleBlur}
+              />
+              <Button type='button' onClick={checkForErrors}>
+                Finish
               </Button>
               <Modal
                 type={'create'}
                 visible={modalVisible}
                 closeFunction={() => setModalVisible(false)}
               />
-              </div>
             </form>
             {data && !!data.errors && (
               <p className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2'>
-                Ocorreu um erro ao salvar os dados
+                Error while trying to save
               </p>
             )}
           </div>

@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
                   Icon={GiConverseShoe}
                   isSelected={currentPage === 'products'}
                 >
-                  Sneakers
+                  Shoes
                 </Sidebar.NavItem>
                 <Sidebar.NavItem
                   href='/categories'

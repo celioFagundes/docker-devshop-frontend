@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
 import Title from '../../components/Title'
 import Table from '../../components/Table'
@@ -8,14 +8,27 @@ import {
   AiFillDelete,
   AiFillEdit,
   AiFillPicture,
-  AiFillInfoCircle
+  AiFillInfoCircle,
 } from 'react-icons/ai'
 import Link from 'next/link'
 import Button from '../../components/Button'
 import Alert from '../../components/Alert'
 import Modal from '../../components/Modal'
 import ModalInfo from '../../components/ModalInfo'
+import Select from '../../components/Select'
 
+const genderOptions = ['All', 'Men', 'Women']
+
+const brandsOptions = ['All', 'Adidas', 'Nike']
+const categoriesOptions = [
+  'All',
+  'Sneakers',
+  'Training & Gym',
+  'Running',
+  'Soccer',
+  'Skateboarding',
+  'Basketball',
+]
 const DELETE_PRODUCT = `
   mutation deleteProduct($id: String!) {
     panelDeleteProduct(id : $id)
@@ -54,10 +67,14 @@ const GET_ALL_PRODUCTS = `
 const Products = () => {
   const { data, error, mutate } = useQuery(GET_ALL_PRODUCTS)
   const [deleteData, deleteProduct] = useMutation(DELETE_PRODUCT)
+  const [displayData, setDisplayData] = useState([])
+  const [filteredData, setFilteredData] = useState([])
+  const [genderSelected, setGenderSelected] = useState('All')
+  const [brandSelected, setBrandSelected] = useState('All')
+  const [categorySelected, setCategorySelected] = useState('All')
   const [modalVisible, setModalVisible] = useState(false)
   const [modalInfoVisible, setModalInfoVisible] = useState(false)
   const [itemSelected, setItemSelected] = useState({})
-
   const openModal = item => async () => {
     setModalVisible(true)
     setItemSelected(item)
@@ -67,29 +84,98 @@ const Products = () => {
     setItemSelected(item)
   }
   const remove = async () => {
-    await deleteProduct({id:itemSelected.id})
+    await deleteProduct({ id: itemSelected.id })
     mutate()
     setModalVisible(false)
   }
+
+  const handleSelect = (fn, e) => {
+    fn(e.target.value)
+  }
+  useEffect(() => {
+    if (data && data.getAllProducts) {
+      setDisplayData(data.getAllProducts)
+    }
+  }, [data])
+
+  const filterByGender = (list) =>{
+    if (genderSelected !== 'All') {
+      let newList = list.filter(item => item.gender === genderSelected)
+      return newList
+    }
+    return list
+  }
+  const filterByBrand = (list) =>{
+    if (brandSelected !== 'All') {
+      let newList = list.filter(item => item.brand.name === brandSelected)
+      return newList
+    }
+    return list
+  }
+  const filterByCategory = (list) =>{
+    if (categorySelected !== 'All') {
+      let newList = list.filter(item => item.category.name === categorySelected)
+      return newList
+    }
+    return list
+  }
+  useEffect(() => {
+    if(data && data.getAllProducts){
+      let filteredList = data.getAllProducts
+      filteredList = filterByGender(filteredList)
+      filteredList = filterByBrand(filteredList)
+      filteredList = filterByCategory(filteredList)
+      setFilteredData(filteredList)
+    }
+    
+  }, [genderSelected, brandSelected, categorySelected])
+
+  useEffect(() => {
+    setDisplayData(filteredData)
+  }, [filteredData])
+
   return (
     <Layout>
-      <Title>Manage Sneakers</Title>
+      <Title>Manage Shoes</Title>
       <div className='mt-5'>
         <Button.Card href='/products/create' Icon={AiOutlinePlus}>
-          Insert new sneaker{' '}
+          Insert new shoe{' '}
         </Button.Card>
       </div>
-
-      <div className='flex flex-col mt-5'>
+      <div className='my-2'>
+        <p className='text-primary font-medium '>Filter By:</p>
+      </div>
+      <div className=' flex items-center justify-start'>
+        <Select.SingleValues
+          options={brandsOptions}
+          label='Brand'
+          value={brandSelected}
+          onChange={evt => handleSelect(setBrandSelected, evt)}
+        />
+        <Select.SingleValues
+          options={categoriesOptions}
+          label='Category'
+          value={categorySelected}
+          onChange={evt => handleSelect(setCategorySelected, evt)}
+        />
+        <Select.SingleValues
+          options={genderOptions}
+          label='Gender'
+          value={genderSelected}
+          onChange={evt => handleSelect(setGenderSelected, evt)}
+        />
+      </div>
+      {genderSelected + brandSelected + categorySelected}
+      <div className='flex flex-col mt-3'>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
-          {data && data.getAllProducts.length === 0 && (
-            <Alert>No sneakers found</Alert>
+          {displayData && displayData.length === 0 && (
+            <Alert>No shoes found</Alert>
           )}
-          {data && data.getAllProducts.length > 0 && (
+          {displayData && displayData.length > 0 && (
             <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg '>
               <Table>
                 <Table.Head>
-                  <Table.Th>Sneaker</Table.Th>
+                  <Table.Th>Shoe</Table.Th>
                   <Table.Th>Brand</Table.Th>
                   <Table.Th>Category</Table.Th>
                   <Table.Th>Gender</Table.Th>
@@ -98,7 +184,7 @@ const Products = () => {
                   <Table.Th></Table.Th>
                 </Table.Head>
                 <Table.Body>
-                  {data.getAllProducts.map(item => (
+                  {displayData.map(item => (
                     <Table.Row key={item.id}>
                       <Table.Td>
                         <div className='flex items-center'>
@@ -179,7 +265,7 @@ const Products = () => {
                             onClick={openModalInfo(item)}
                             className='text-lightGray font-medium hover:text-gray-400'
                           >
-                            <AiFillInfoCircle size={24}/>
+                            <AiFillInfoCircle size={24} />
                           </button>
                         </div>
                       </Table.Td>

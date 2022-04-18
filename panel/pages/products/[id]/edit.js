@@ -112,6 +112,7 @@ const ProductSchema = Yup.object().shape({
   }),
   slug: Yup.string()
     .min(3, '3 characters minimum required')
+    .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/,'Contains invalid characters')
     .required('Please, enter a slug')
     .test('is-unique', 'Slug already in use', async value => {
       const ret = await fetcher(
@@ -267,7 +268,7 @@ const EditProduct = () => {
   }
   return (
     <Layout>
-      <Title>Edit sneaker</Title>
+      <Title>Edit shoe</Title>
       <div className='mt-5'>
         <Button.LinkBack href='/products'>Back</Button.LinkBack>
       </div>
@@ -277,7 +278,7 @@ const EditProduct = () => {
             <form onSubmit={form.handleSubmit}>
               <Input
                 label='Name'
-                placeholder='Enter sneaker name'
+                placeholder='Enter shoe name'
                 onChange={form.handleChange}
                 value={form.values.name}
                 name='name'
@@ -287,7 +288,7 @@ const EditProduct = () => {
               />
               <Input
                 label='URL Slug'
-                placeholder='Enter sneaker slug'
+                placeholder='Enter shoe slug'
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
                 value={form.values.slug}
@@ -360,7 +361,7 @@ const EditProduct = () => {
                   }
                 />
                 <Select
-                  label={'Select sneaker category'}
+                  label={'Select shoe category'}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   name='category'
@@ -369,7 +370,7 @@ const EditProduct = () => {
                   errorMessage={form.errors.category}
                 />
                 <Select
-                  label={'Select sneaker brand'}
+                  label={'Select shoe brand'}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   name='brand'
@@ -384,7 +385,7 @@ const EditProduct = () => {
                   render={arrayHelpers => {
                     return (
                       <div className=''>
-                        <p className='text-primary font-medium text-lg'>Sneaker Variations</p>
+                        <p className='text-primary font-medium text-lg'>Shoe Variations</p>
                         <div className='my-1'>
                           <Button
                             type='button'
@@ -480,7 +481,7 @@ const EditProduct = () => {
                 />
               </FormikProvider>
               <Button type='button' onClick={checkForErrors}>
-                Finish
+                Save changes
               </Button>
               <Modal
                 type={'create'}

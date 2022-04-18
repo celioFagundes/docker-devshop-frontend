@@ -46,14 +46,14 @@ const UploadLogo = () => {
   return (
     <Layout>
       <Title>
-        Upload logo da Marca :{' '}
+        Brand logo upload:{' '}
         {data && data.getBrandById && data.getBrandById.name}
       </Title>
       <div className='mt-5'>
-        <Button.LinkOutline href='/brands'>Voltar</Button.LinkOutline>
+        <Button.LinkBack href='/brands'>Back</Button.LinkBack>
       </div>
-      <div className='flex flex-col mt-5'>
-        <div className='align-middle  inline-block min-w-full shadow overflow-hidden sm:rounded-lg border border-gray-600 bg-gray-800 p-12'>
+      <div className='flex flex-col'>
+        <div className='align-middle  inline-block min-w-full shadow overflow-hidden rounded-sm  bg-darkBlack p-12'>
           <form onSubmit={form.handleSubmit}>
             <div className='flex flex-col'>
               <input
@@ -65,12 +65,12 @@ const UploadLogo = () => {
                 }
               />
 
-              <Button type='submit'>Salvar imagem</Button>
+              <Button type='submit'>Save logo</Button>
             </div>
           </form>
           {uploadData && !!uploadData.errors && (
             <p className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2'>
-              Ocorreu um erro ao salvar os dados
+              Error while trying to save
             </p>
           )}
         </div>

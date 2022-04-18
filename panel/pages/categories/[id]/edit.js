@@ -1,7 +1,7 @@
-import React, { useEffect , useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../../components/Layout'
 import Title from '../../../components/Title'
-import { useMutation, useQuery , fetcher} from '../../../lib/graphql'
+import { useMutation, useQuery, fetcher } from '../../../lib/graphql'
 import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
 import Input from '../../../components/Input'
@@ -44,7 +44,7 @@ const CategorySchema = Yup.object().shape({
       if (ret.errors) {
         return true
       }
-      if(ret.data.getCategoryBySlug.id === id){
+      if (ret.data.getCategoryBySlug.id === id) {
         return true
       }
       return false
@@ -63,9 +63,9 @@ const EditCategory = () => {
 }`)
   const [updatedData, updateCategory] = useMutation(UPDATE_CATEGORY)
   const form = useFormik({
-    validateOnChange:false,
-    validateOnMount:true,
-    validateOnBlur:true,
+    validateOnChange: false,
+    validateOnMount: true,
+    validateOnBlur: true,
     initialValues: {
       name: '',
       slug: '',
@@ -76,9 +76,9 @@ const EditCategory = () => {
         ...values,
         id: router.query.id,
       }
-      const data =  await updateCategory(category)
+      const data = await updateCategory(category)
 
-      if (data &&  !data.errors) {
+      if (data && !data.errors) {
         router.push('/categories')
       }
     },
@@ -89,50 +89,56 @@ const EditCategory = () => {
       form.setFieldValue('slug', data.getCategoryById.slug)
     }
   }, [data])
-  const checkForErrors = async() =>{
-    if(JSON.stringify(form.errors) === '{}'){
+  const checkForErrors = async () => {
+    if (JSON.stringify(form.errors) === '{}') {
       setModalVisible(true)
     }
   }
   return (
     <Layout>
-      <Title>Editar Categoria</Title>
+      <Title>Edit Category</Title>
       <div className='mt-5'>
-        <Button.LinkOutline href='/categories'>Voltar</Button.LinkOutline>
+        <Button.LinkBack href='/categories'>Back</Button.LinkBack>
       </div>
-      <div className='flex flex-col mt-5'>
-        <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border border-gray-600 bg-gray-800  p-12'>
+      <div className='flex flex-col'>
+        <div className='align-middle inline-block min-w-full shadow overflow-hidden rounded-sm bg-darkBlack p-12'>
           <form onSubmit={form.handleSubmit}>
             <div className='mb-3'>
-            <Input
-              label='Nome da categoria'
-              placeholder='Preencha o nome da categoria'
-              onChange={form.handleChange}
-              value={form.values.name}
-              name='name'
-              errorMessage={form.errors.name}
-              onBlur={form.handleBlur}
-            />
+              <Input
+                label='Category name'
+                placeholder='Enter category name'
+                onChange={form.handleChange}
+                value={form.values.name}
+                name='name'
+                errorMessage={form.errors.name}
+                onBlur={form.handleBlur}
+              />
             </div>
-            
+
             <Input
-              label='Slug da categoria'
-              placeholder='Preencha o slug da categoria'
+              label='Category slug'
+              placeholder='Enter category slug'
               onChange={form.handleChange}
               value={form.values.slug}
               name='slug'
-              onBlur={form.handleBlur}
-              helpText='Slug é utilizado para criar URLs amigaveis'
               errorMessage={form.errors.slug}
+              onBlur={form.handleBlur}
+              helpText={"Slug is used to create easy-to-read URL's"}
             />
-            <Button type='button' onClick={checkForErrors}>Salvar alterações</Button> 
-              <Modal type = {'edit'}  visible = {modalVisible} closeFunction = {() => setModalVisible(false)}/>
+            <Button type='button' onClick={checkForErrors}>
+              Save changes
+            </Button>
+            <Modal
+              type={'edit'}
+              visible={modalVisible}
+              closeFunction={() => setModalVisible(false)}
+            />
           </form>
           {updatedData && !!updatedData.errors && (
-              <p className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2'>
-                Ocorreu um erro ao salvar os dados
-              </p>
-            )}
+            <p className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2'>
+               Error while trying to save data
+            </p>
+          )}
         </div>
       </div>
     </Layout>

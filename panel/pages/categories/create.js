@@ -71,17 +71,18 @@ const CreateCategory = () => {
   }
   return (
     <Layout>
-      <Title>Gerenciar Categorias</Title>
+      <Title>Create category</Title>
       <div className='mt-5'>
-        <Button.LinkOutline href='/categories'>Voltar</Button.LinkOutline>
+        <Button.LinkBack href='/categories'>Back</Button.LinkBack>
       </div>
-      <div className='flex flex-col mt-5'>
+      <div className='flex flex-col'>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
-          <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border border-gray-600 bg-gray-800 p-12'>
+          <div className='align-middle inline-block min-w-full shadow overflow-hidden rounded-sm bg-darkBlack p-12'>
             <form onSubmit={form.handleSubmit}>
-              <div className='mb-3'><Input
-                label='Nome da categoria'
-                placeholder='Preencha o nome da categoria'
+              <div className='mb-3'>
+                <Input
+                label='Category name'
+                placeholder='Enter category name'
                 onChange={form.handleChange}
                 value={form.values.name}
                 name='name'
@@ -91,21 +92,21 @@ const CreateCategory = () => {
               
 
               <Input
-                label='Slug da categoria'
-                placeholder='Preencha o slug da categoria'
+                label='Category slug'
+                placeholder='Enter category slug'
                 onChange={form.handleChange}
                 value={form.values.slug}
                 name='slug'
                 errorMessage={form.errors.slug}
                 onBlur={form.handleBlur}
-                helpText='Slug é utilizado para criar URLs amigaveis'
+                helpText={"Slug is used to create easy-to-read URL's"}
               />
-              <Button type='button' onClick={checkForErrors}>Criar categoria</Button> 
+              <Button type='button' onClick={checkForErrors}>Finish</Button> 
               <Modal type = {'create'}  visible = {modalVisible} closeFunction = {() => setModalVisible(false)}/>
             </form>
             {data && !!data.errors && (
               <p className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2'>
-                Ocorreu um erro ao salvar os dados
+                Error while trying to save data
               </p>
             )}
           </div>

@@ -62,30 +62,30 @@ const AlterarSenha = () => {
   return (
     <Layout>
       <Title>
-        Alterar senha de :{' '}
+        Change password :{' '}
         {data && data.panelGetUserById && data.panelGetUserById.name}
       </Title>
       <div className='mt-5'>
-        <Button.LinkOutline href='/users'>Voltar</Button.LinkOutline>
+        <Button.LinkBack href='/users'>Back</Button.LinkBack>
       </div>
-      <div className='flex flex-col mt-5'>
-        <div className='align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border border-gray-600 bg-gray-800 p-12'>
+      <div className='flex flex-col'>
+        <div className='align-middle inline-block min-w-full shadow overflow-hidden rounded-sm bg-darkBlack p-12'>
           <form onSubmit={form.handleSubmit}>
             <Input
-              label='Senha do usuario'
-              placeholder='Preencha a senha do usuario'
+              label='User password'
+              placeholder='Enter user password'
               onChange={form.handleChange}
               onBlur={form.handleBlur}
               value={form.values.password}
               name='password'
               errorMessage={form.errors.password}
             />
-            <Button type='button' onClick={checkForErrors}>Salvar alterações</Button> 
+            <Button type='button' onClick={checkForErrors}>Save changes</Button> 
               <Modal type = {'edit'}  visible = {modalVisible} closeFunction = {() => setModalVisible(false)}/>
           </form>
           {updatedData && !!updatedData.errors && (
             <p className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2'>
-              Ocorreu um erro ao salvar os dados
+              Error while trying to save
             </p>
           )}
         </div>
