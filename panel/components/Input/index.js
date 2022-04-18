@@ -231,9 +231,63 @@ const InputVariation = ({
     </div>
   )
 }
+const InputSearch = ({
+  type = 'text',
+  placeholder = '',
+  label = '',
+  value,
+  onChange,
+  name = '',
+  helpText,
+  errorMessage = '',
+  disabled,
+  onBlur,
+}) => {
+  return (
+    <div className='flex items-center justify-start '>
+      <div className='mr-2 bg-lightBlack  px-3  w-full max-w-lg rounded-sm'>
+        <div className='flex items-center w-full justify-start'>
+          <label
+            className='uppercase min-w-fit text-primary text-xs font-medium  mr-3'
+            htmlFor={'id-' + name}
+          >
+            {label}
+          </label>
+          <input
+            onBlur={onBlur}
+            disabled={disabled}
+            className='
+              appearance-none 
+               w-full
+              py-1 px-3 mr-2 
+              bg-darkBlack text-gray-200 
+              leading-tight 
+              placeholder-gray-600
+              focus:outline-none '
+            type={type}
+            id={'id-' + name}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            name={name}
+          />
+        </div>
 
+        {helpText && (
+          <p className='text-blue-200 text-xs italic my-1'>{helpText} </p>
+        )}
+      </div>
+      {errorMessage && (
+        <p className='text-red-400 text-xs italic my-1 sm:my-0'>
+          {errorMessage}
+        </p>
+      )}
+    </div>
+  )
+}
 Input.Checkbox = InputCheckbox
 Input.Color = InputColor
 Input.TextArea = InputTextArea
 Input.Variation = InputVariation
+Input.Search = InputSearch
 export default Input

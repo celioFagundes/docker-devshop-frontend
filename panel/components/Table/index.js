@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Table = ({ children }) => {
-  return <table className='min-w-full my-2 '>{children}</table>
+  return <table className='min-w-full '>{children}</table>
 }
 
 const TableHead = ({ children }) => {

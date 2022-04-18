@@ -16,6 +16,7 @@ import Alert from '../../components/Alert'
 import Modal from '../../components/Modal'
 import ModalInfo from '../../components/ModalInfo'
 import Select from '../../components/Select'
+import Input from '../../components/Input'
 
 const genderOptions = ['All', 'Men', 'Women']
 
@@ -68,10 +69,10 @@ const Products = () => {
   const { data, error, mutate } = useQuery(GET_ALL_PRODUCTS)
   const [deleteData, deleteProduct] = useMutation(DELETE_PRODUCT)
   const [displayData, setDisplayData] = useState([])
-  const [filteredData, setFilteredData] = useState([])
   const [genderSelected, setGenderSelected] = useState('All')
   const [brandSelected, setBrandSelected] = useState('All')
   const [categorySelected, setCategorySelected] = useState('All')
+  const [searchInput, setSearchInput] = useState('')
   const [modalVisible, setModalVisible] = useState(false)
   const [modalInfoVisible, setModalInfoVisible] = useState(false)
   const [itemSelected, setItemSelected] = useState({})
@@ -89,6 +90,9 @@ const Products = () => {
     setModalVisible(false)
   }
 
+  const handleInput = evt =>{
+    setSearchInput(evt.target.value.toLowerCase())
+  }
   const handleSelect = (fn, e) => {
     fn(e.target.value)
   }
@@ -98,41 +102,38 @@ const Products = () => {
     }
   }, [data])
 
-  const filterByGender = (list) =>{
+  const filterByGender = list => {
     if (genderSelected !== 'All') {
-      let newList = list.filter(item => item.gender === genderSelected)
+      let newList = list.filter(item => item.gender === genderSelected && item.name.toLowerCase().includes(searchInput))
       return newList
     }
     return list
   }
-  const filterByBrand = (list) =>{
+  const filterByBrand = list => {
     if (brandSelected !== 'All') {
       let newList = list.filter(item => item.brand.name === brandSelected)
       return newList
     }
     return list
   }
-  const filterByCategory = (list) =>{
+  const filterByCategory = list => {
     if (categorySelected !== 'All') {
       let newList = list.filter(item => item.category.name === categorySelected)
       return newList
     }
     return list
   }
-  useEffect(() => {
-    if(data && data.getAllProducts){
-      let filteredList = data.getAllProducts
-      filteredList = filterByGender(filteredList)
-      filteredList = filterByBrand(filteredList)
-      filteredList = filterByCategory(filteredList)
-      setFilteredData(filteredList)
-    }
-    
-  }, [genderSelected, brandSelected, categorySelected])
 
   useEffect(() => {
-    setDisplayData(filteredData)
-  }, [filteredData])
+    if (data && data.getAllProducts) {
+      let filteredList = data.getAllProducts
+      filteredList = filterByBrand(filteredList)
+      filteredList = filterByCategory(filteredList)
+      filteredList = filterByGender(filteredList)
+      let newDisplayList = filteredList.filter(item => item.name.toLowerCase().includes(searchInput))
+      setDisplayData(newDisplayList)
+    }
+  }, [searchInput,genderSelected, brandSelected, categorySelected])
 
   return (
     <Layout>
@@ -142,31 +143,30 @@ const Products = () => {
           Insert new shoe{' '}
         </Button.Card>
       </div>
-      <div className='my-2'>
-        <p className='text-primary font-medium '>Filter By:</p>
+      <div className='flex items-center justify-start bg-lightBlack mt-2 py-1'>
+        <Input.Search label='Search by name' value={searchInput} onChange = {(evt) => handleInput(evt)}/>
+        <div className=' flex items-center justify-start'>
+          <Select.SingleValuesHorizontal
+            options={brandsOptions}
+            label='Brand'
+            value={brandSelected}
+            onChange={evt => handleSelect(setBrandSelected, evt)}
+          />
+          <Select.SingleValuesHorizontal
+            options={categoriesOptions}
+            label='Category'
+            value={categorySelected}
+            onChange={evt => handleSelect(setCategorySelected, evt)}
+          />
+          <Select.SingleValuesHorizontal
+            options={genderOptions}
+            label='Gender'
+            value={genderSelected}
+            onChange={evt => handleSelect(setGenderSelected, evt)}
+          />
+        </div>
       </div>
-      <div className=' flex items-center justify-start'>
-        <Select.SingleValues
-          options={brandsOptions}
-          label='Brand'
-          value={brandSelected}
-          onChange={evt => handleSelect(setBrandSelected, evt)}
-        />
-        <Select.SingleValues
-          options={categoriesOptions}
-          label='Category'
-          value={categorySelected}
-          onChange={evt => handleSelect(setCategorySelected, evt)}
-        />
-        <Select.SingleValues
-          options={genderOptions}
-          label='Gender'
-          value={genderSelected}
-          onChange={evt => handleSelect(setGenderSelected, evt)}
-        />
-      </div>
-      {genderSelected + brandSelected + categorySelected}
-      <div className='flex flex-col mt-3'>
+      <div className='flex flex-col'>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
           {displayData && displayData.length === 0 && (
             <Alert>No shoes found</Alert>
@@ -190,7 +190,7 @@ const Products = () => {
                         <div className='flex items-center'>
                           <div>
                             <div className='text-sm leading-5 font-medium text-lightGray'>
-                              {item.name}
+                              {item.name + item.color.colorName}
                             </div>
                             <div className='text-sm leading-5 text-lightGray  max-w-xs overflow-hidden truncate'>
                               {item.description}
