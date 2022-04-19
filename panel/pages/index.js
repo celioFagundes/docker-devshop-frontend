@@ -52,16 +52,16 @@ const Index = () => {
     }
   }, [])
   return (
-    <div className='min-h-screen flex flex-col w-full bg-slate-900'>
+    <div className='min-h-screen flex flex-col w-full bg-lightBlack'>
       <div className='container bg-slate-max-w-xs flex-1 mx-auto flex flex-col items-center justify-center px-2 '>
-        <h1 className ='text-white font-medium my-4'>Digite suas credenciais para acessar o painel administrativo</h1>
+        <h1 className ='text-white font-medium my-4'>Enter your credentials to access the administrative panel</h1>
         <form
           onSubmit={form.handleSubmit}
-          className='bg-slate-700 shadow-md rounded px-8 pt-6 pb-8 mb-4'
+          className='bg-darkBlack shadow-md rounded px-8 pt-6 pb-8 mb-4'
         >
           <Input
             label='Email'
-            placeholder='Preencha seu email'
+            placeholder='Enter your email'
             onChange={form.handleChange}
             value={form.values.email}
             name='email'
@@ -69,7 +69,7 @@ const Index = () => {
           />
           <Input
             label='Password'
-            placeholder='Preencha sua senha'
+            placeholder='Enter your password'
             onChange={form.handleChange}
             value={form.values.password}
             name='password'
@@ -78,11 +78,11 @@ const Index = () => {
           />
           {signError && (
             <p className='text-red-500 text-xs italic'>
-              Email e/ou senha inválidos
+              Invalid credentials
             </p>
           )}
           <div className='flex items-center justify-center mt-2'>
-            <Button type='submit'>Entrar</Button>
+            <Button type='submit'>Login</Button>
           </div>
         </form>
       </div>

@@ -104,7 +104,7 @@ const Products = () => {
 
   const filterByGender = list => {
     if (genderSelected !== 'All') {
-      let newList = list.filter(item => item.gender === genderSelected && item.name.toLowerCase().includes(searchInput))
+      let newList = list.filter(item => item.gender === genderSelected)
       return newList
     }
     return list
